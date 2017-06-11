@@ -1,0 +1,340 @@
+\documentclass[12pt,a4paper]{amsart}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\usepackage{a4wide}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+%\usepackage[left=5cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+\usepackage{anysize}
+\usepackage{showkeys}
+
+\newenvironment{comment}{}{}
+
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+  citecolor   = red %Colour of citations
+}
+
+\newtheorem{proposition}{Предложение}[section]
+\newtheorem{claim}{Утверждение}[section]
+\newtheorem{conjecture}{Гипотеза}[section]
+\newtheorem{corollary}{Следствие}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Определение}[section]
+\theoremstyle{definition}
+\newtheorem{designation}{Обозначение}[section]
+
+% \newenvironment{theoremproof}
+% {\par\noindent{\bf Доказательство Теоремы \arabic{section}.\arabic{theorem}}}
+% {\hfill$\scriptstyle\blacksquare$}
+
+\newenvironment{nouppercase}{%
+  \let\uppercase\relax%
+  \renewcommand{\uppercasenonmath}[1]{}}{}
+
+\relpenalty=100
+\binoppenalty=1000
+
+
+% sections titling
+
+\usepackage{etoolbox}
+\patchcmd{\subsection}{\bfseries}{}{}{}
+\usepackage{titlesec}
+\titleformat{\section}[block]{\Large\bfseries}{}{1em}{}
+\titleformat{\subsection}[hang]{}{}{2em}{}%\filcenter}{}{1em}{}
+
+% sections titling
+
+
+% ToC
+
+\setcounter{tocdepth}{3}
+\makeatletter
+\def\l@subsection{\@tocline{2}{0pt}{2.5em}{2em}{}}
+%Make Chapter disapear in ToC
+\renewcommand\tocchapter[3]{%
+  \indentlabel{\@ifnotempty{#2}{\ignorespaces#2.\quad}}#3%
+}
+\newcommand\@dotsep{4.5}
+\def\@tocline#1#2#3#4#5#6#7{\relax
+  \ifnum #1>\c@tocdepth % then omit
+  \else
+    \par \addpenalty\@secpenalty\addvspace{#2}%
+    \begingroup \hyphenpenalty\@M
+    \@ifempty{#4}{%
+      \@tempdima\csname r@tocindent\number#1\endcsname\relax
+    }{%
+      \@tempdima#4\relax
+    }%
+    \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+    \rightskip\@pnumwidth plus1em \parfillskip-\@pnumwidth
+    #5\leavevmode\hskip-\@tempdima{#6}\nobreak
+    \leaders\hbox{$\m@th\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+    \nobreak
+    \hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+    \nobreak
+    \endgroup
+  \fi}
+\makeatother
+\AtBeginDocument{%
+\makeatletter
+\expandafter\renewcommand\csname r@tocindent0\endcsname{0pt}
+\makeatother
+}
+\newcommand\atotoc[1]{\addtocontents{toc}{#1\par}}
+
+\makeatletter
+\def\l@section{\@dottedtocline{1}{1em}{1.5em}}
+\makeatother
+
+
+\apptocmd{\thebibliography}{\csname phantomsection\endcsname\addcontentsline{toc}{chapter}{Список литературы}}{}{}
+
+% ToC
+
+% headers and footers
+
+\makeatletter
+\def\ps@myPS{%
+  \def\@oddfoot{\normalfont\scriptsize \hfil\rule{0pt}{20pt}\thepage\hfil
+    \global\topskip\normaltopskip}%
+    \let\@evenfoot\@oddfoot
+  \def\@oddhead{\@serieslogo\hss}%
+    \let\@evenhead\@oddhead % in case an article starts on a left-hand page
+}
+\makeatother
+
+\pagestyle{myPS}
+
+% headers and footers
+
+
+% invisible section title
+
+\newcommand{\invsection}[1]{
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \sectionmark{#1}
+}
+
+% invisible section title
+
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\hy}{\mu(X^l)}
+\newcommand{\Exy}{\E_{x,y}}
+\newcommand{\El}{\E_{X^l}}
+\newcommand{\pd}[2]{\frac{\partial#1}{\partial#2}}
+\newcommand{\Sum}{\sum\limits}
+\renewcommand\i{\textit}
+\renewcommand\b{\textbf}
+\newcommand\und\textunderscore
+
+
+\setlength{\textwidth}{\paperwidth}
+\addtolength{\textwidth}{-40mm}
+\calclayout
+
+
+\begin{document}
+
+\begin{titlepage}
+
+\begin{center}
+Министерство образования и науки Российской Федерации
+\vspace{0.4cm}
+
+Федеральное государственное автономное образовательное учреждение высшего профессионального образования
+\vspace{0.4cm}
+
+<<Московский физико-технический институт (государственный университет)>>
+\vspace{0.4cm}
+
+Факультет инноваций и высоких технологий
+\vspace{0.4cm}
+
+Кафедра анализа данных
+\vspace{0.7cm}
+
+\end{center}
+%\hrule
+
+\begin{flushright}
+  На правах рукописи
+
+  УДК ????\phantom{}
+\end{flushright}
+%\hbox to \textwidth{
+%\hss На правах рукописи}
+
+\vspace{1.4cm}
+
+\begin{center}
+Левков Мирон Николаевич
+\end{center}
+
+\vspace{0.8cm}
+
+\begin{center}
+Гладкая метрика для задачи ранжирования
+\end{center}
+
+\vspace{1.3cm}
+
+\begin{center}
+\bf Выпускная квалификационная работа бакалавра
+\end{center}
+
+\vspace{1.8cm}
+
+\begin{center}
+Направление подготовки: 010400 Прикладные математика и информатика
+\end{center}
+
+\vspace{0.8cm}
+
+
+\vspace{2.0cm}
+
+Заведующий кафедрой \verb"           " \underline{\quad \quad \quad \quad \quad \quad \quad}
+\verb"        "
+/???/
+
+Научный руководитель \verb"           " \underline{\quad \quad \quad \quad \quad \quad \quad}
+\verb"        "
+/Воронцов А.?./
+
+Студент \verb"                        " \underline{\quad \quad \quad \quad \quad \quad \quad}
+\verb"        "
+/Левков М.Н./
+
+\vspace{1.0cm}
+
+\hbox to \textwidth
+{
+\hss г. Москва \hss
+}
+\hbox to \textwidth
+{
+\hss 2017 \hss
+}
+
+\end{titlepage}
+
+% ============================================================================================================
+
+\title{Гладкая метрика для задачи ранжирования}
+
+\author{М.Н.~Левков}
+
+
+\begin{abstract}
+Рассматривается задача ранжирования документов в поисковых запросах. В работе исследованы имеющиеся варианты сглаживания метрики ранжирования. Предложены различные способы сглаживания метрики DCG. Проведен анализ зависимости качества сглаженных метрик от гиперпараметров и размера выборки поисковых запросов.
+\end{abstract}
+
+
+\begin{nouppercase}
+\maketitle
+\end{nouppercase}
+
+\tableofcontents
+
+\pagebreak
+
+% ============================================================================================================
+
+\section{Введение}
+
+Рассмотрим задачу ранжирования документов в выдаче поиского запроса.
+\begin{designation}
+Обозначим $\{d_i\}_{i=1}^n$ - набор \textit{документов} релевантных данному поисковому запросу; 
+$\{r_i\}_{i=1}^n$ - \textit{рельные оценки} данных документов, проставленные ассесорами; \\
+$\{s_i\}_{i=1}^n$ - оценки релевантности (\textit{скоры}), выданные ранжирующим алгоритмом
+\end{designation}
+
+
+\begin{definition}
+Метрика качества ранжирования \b{DCG} определяется по формуле:
+$$DCG = \Sum_{i=1}^k \frac{r_{p_i}}{discount(i)}$$
+где $p_1,...,p_n$ - перестановка на множестве $\{1,...,n\}$, т.ч. ${s_{p_1} > s_{p_2} > ... > s_{p_n}}$; k - количество документов, по которым считается метрика ($k \le n$); 
+discount(i) - дисконтирующий фактор, как правило $\frac{1}{i}$
+\end{definition}
+
+Традиционные метрики ранжирования имеют конструкцию похожую на DCG: несложно заметить, что при фиксированном наборе документов и их оценок данная метрика принимает конечное количество различных значений. При этом изменение значения метрики происходит лишь в случае перестановки местами двух документов в выдаче. Таким образом метрика не имеет гладкой зависимости от скоров. В то же самое время логично ожидать, что, если ранжирующий алгоритм выдал трем документам оценки $\{100, 1, 0.5\}$, а другим трем документам - $\{10, 1, 0.5\}$, то он считает первый документ из первой тройки сильно лучшим, чем первый документ из второй тройки.
+В данной работе исследуются разные подходы к построению метрик ранжирования, с целью получения метрики, которая бы удовлетворяла ряду свойств, вводимых далее
+
+% ============================================================================================================
+
+\newpage
+\section{Метрики качества результатов}
+
+% ============================================================================================================
+
+\newpage
+\section{Рассмотренные метрики}
+
+\subsection{Метрика SoftDCG}
+\pagebreak
+
+% ============================================================================================================
+
+\subsection{Метрика NoisedSoftDCG}
+\pagebreak
+
+% ============================================================================================================
+
+\subsection{Метрика FairSoftDCG}
+\pagebreak
+
+% ============================================================================================================
+
+\newpage
+\section{Применение результатов}
+
+% ============================================================================================================
+
+\newpage
+\section{Эксперименты}
+
+\subsection{Зависимость гладкости от размера пула запросов}
+\pagebreak
+
+% ============================================================================================================
+
+\subsection{Зависимость качества аппроксимации от размера пула запросов}
+\pagebreak
+
+% ============================================================================================================
+
+\subsection{Изменение метрики при добавлении шума}
+\pagebreak
+
+% ============================================================================================================
+
+\newpage
+\section{Проблема выбора гиперпараметра}
+
+% ============================================================================================================
+
+\newpage
+\section{Выводы}
+
+% ============================================================================================================
+
+\newpage
+
+\begin{thebibliography}{9}
+
+\end{thebibliography}
+
+\vspace{0.7cm}
+
+\end{document}
