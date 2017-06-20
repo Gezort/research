@@ -1,13 +1,18 @@
-\documentclass[12pt,a4paper]{amsart}
-
+\documentclass[14pt,a4paper]{amsart}
+\usepackage{extsizes}
 \usepackage[utf8]{inputenc}
 \usepackage[english,russian]{babel}
 \usepackage{a4wide}
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage[T2A]{fontenc}
+\usepackage{listings}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{resizegather}
 
-\usepackage[left=5cm,right=2cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\usepackage[left=3cm,right=2cm, top=2cm,bottom=2cm]{geometry}
 
 \usepackage{anysize}
 \usepackage{showkeys}
@@ -22,41 +27,49 @@
   citecolor   = red %Colour of citations
 }
 
-\newtheorem{proposition}{Предложение}[section]
-\newtheorem{claim}{Утверждение}[section]
-\newtheorem{conjecture}{Гипотеза}[section]
-\newtheorem{corollary}{Следствие}[section]
-
 \theoremstyle{definition}
 \newtheorem{definition}{Определение}[section]
 \theoremstyle{definition}
 \newtheorem{designation}{Обозначение}[section]
 
-% \newenvironment{theoremproof}
-% {\par\noindent{\bf Доказательство Теоремы \arabic{section}.\arabic{theorem}}}
-% {\hfill$\scriptstyle\blacksquare$}
 
-\newenvironment{nouppercase}{%
-  \let\uppercase\relax%
-  \renewcommand{\uppercasenonmath}[1]{}}{}
+
+\renewenvironment{abstract}{%
+\hfill\begin{minipage}{0.95\textwidth}
+\rule{\textwidth}{1pt}}
+{\par\noindent\rule{\textwidth}{1pt}\end{minipage}}
+
+\makeatletter
+\renewcommand\@maketitle{%
+\hfill
+\begin{minipage}{0.95\textwidth}
+\vskip 2em
+\let\footnote\thanks 
+{\LARGE \@title \par }
+\vskip 1.5em
+{\large \@author \par}
+\end{minipage}
+\vskip 1em \par
+}
+\makeatother
+
+
 
 \relpenalty=100
 \binoppenalty=1000
 
 \sloppy
+\linespread{1.3}
 
 % sections titling
 
-\usepackage{etoolbox}
 \patchcmd{\subsection}{\bfseries}{}{}{}
-\usepackage{titlesec}
+
 \titleformat{\section}[block]{\Large\bfseries}{}{-0.5em}{}
 \titleformat{\subsection}[hang]{\large\bfseries}{}{0em}{}%\filcenter}{}{1em}{}
 \titlespacing{\subsection}{0em}{2em}{1em}
 
-
 % sections titling
-
 
 % ToC
 
@@ -151,87 +164,53 @@
 \begin{document}
 
 \begin{titlepage}
-
-\begin{center}
-Министерство образования и науки Российской Федерации
-\vspace{0.4cm}
-
-Федеральное государственное автономное образовательное учреждение высшего профессионального образования
-\vspace{0.4cm}
-
-<<Московский физико-технический институт (государственный университет)>>
-\vspace{0.4cm}
-
-Факультет инноваций и высоких технологий
-\vspace{0.4cm}
-
-Кафедра анализа данных
-\vspace{0.7cm}
-
-\end{center}
-%\hrule
-
-\begin{flushright}
-  На правах рукописи
-
-  УДК ????\phantom{}
-\end{flushright}
-%\hbox to \textwidth{
-%\hss На правах рукописи}
-
-\vspace{1.4cm}
-
-\begin{center}
-Левков Мирон Николаевич
-\end{center}
-
-\vspace{0.8cm}
-
-\begin{center}
-Гладкая метрика для задачи ранжирования
-\end{center}
-
-\vspace{1.3cm}
-
-\begin{center}
-\bf Выпускная квалификационная работа бакалавра
-\end{center}
-
-\vspace{1.8cm}
-
-\begin{center}
-Направление подготовки: 010400 Прикладные математика и информатика
-\end{center}
-
-\vspace{0.8cm}
-
-
-\vspace{2.0cm}
-
-Заведующий кафедрой \verb"              " \underline{\quad \quad \quad \quad \quad \quad \quad}
-\verb"        "
-/Бунина Е.И./
-
-Научный руководитель \verb"              " \underline{\quad \quad \quad \quad \quad \quad \quad}
-\verb"        "
-/Воронцов А.С./
-
-Студент \verb"                           " \underline{\quad \quad \quad \quad \quad \quad \quad}
-\verb"        "
-/Левков М.Н./
-
-\vspace{1.0cm}
-
-\hbox to \textwidth
-{
-\hss г. Москва \hss
-}
-\hbox to \textwidth
-{
-\hss 2017 \hss
-}
-
+  \newpage
+  
+  \begin{center}
+    МИНИСТЕРСТВО ОБРАЗОВАНИЯ И НАУКИ РОССИЙСКОЙ ФЕДЕРАЦИИ \\
+    \vspace{0.5cm}
+    ГОСУДАРСТВЕННОЕ ОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ \\* 
+    ВЫСШЕГО ПРОФЕССИОНАЛЬНОГО ОБРАЗОВАНИЯ \\* 
+    «МОСКОВСКИЙ ФИЗИКО-ТЕХНИЧЕСКИЙ ИНСТИТУТ \\* 
+    (ГОСУДАРСТВЕННЫЙ УНИВЕРСИТЕТ)» \\*
+    \vspace{0.5cm}
+    ФАКУЛЬТЕТ ИННОВАЦИЙ И ВЫСОКИХ ТЕХНОЛОГИЙ \\*
+    КАФЕДРА АНАЛИЗА ДАННЫХ \\*
+    \hrulefill
+  \end{center}
+  
+  \vspace{2em}
+  
+  \begin{center}
+    \Large Выпускная квалификационная работа по направлению 01.03.02 "Прикладные математика и информатика"\\*
+    На тему:
+  \end{center}
+  
+  
+  \vspace{1.5em}
+  
+  \begin{center}
+    \textsc{\textbf{Гладкая метрика для задачи ранжирования}}
+  \end{center}
+  
+  \vspace{3em}
+  
+  \begin{flushleft}
+    Студент \hrulefill Левков Мирон Николаевич \\
+    \vspace{1.5em}
+    Научный руководитель \hrulefill Воронцов Александр Сергеевич\\
+    \vspace{1.5em}
+    Зам. зав. кафедрой   \hrulefill Бунина Елена Игоревна
+  \end{flushleft}
+  
+  \vspace{\fill}
+  
+  \begin{center}
+    Москва, 2017
+  \end{center}
+  
 \end{titlepage}
+\setcounter{page}{2}
 
 % ============================================================================================================
 
@@ -239,15 +218,15 @@
 
 \author{М.Н.~Левков}
 
+\maketitle
 
 \begin{abstract}
+\normalsize
 Рассматривается задача ранжирования документов в поисковых запросах. В работе исследованы имеющиеся варианты сглаживания метрики ранжирования. Предложены различные способы сглаживания метрики DCG. Проведен анализ зависимости качества сглаженных метрик от гиперпараметров и размера выборки поисковых запросов.
 \end{abstract}
 
 
-\begin{nouppercase}
-\maketitle
-\end{nouppercase}
+
 
 \tableofcontents
 
@@ -324,7 +303,9 @@ $\t{diff}_{std} = \frac{1}{k - 1} \Sum_{i=2}^k (y_i - y_{i-1} - \t{diff}_{mean})
 
 \begin{definition}
 Пусть $\{y_i\}_{i=1}^k$ - значения нашей метрики на данном пуле запросов для k различных значений набора гиперпараметров. Пусть $window \in \mathbb{Z}, deg \in \mathbb{N}$. Тогда \b{гладкостью} функции, посчитанной \b{с помощью аппроксимации полиномами}, будем называть величину
-$$\t{smooth}_\t{poly}(y_1,...,y_k) = \Sum_{i=1}^{k - window + 1} \frac{\left(poly_{deg}(y_i,...,y_{i + window - 1})_{i + \lfloor{\frac{window}{2}}\rfloor} - y_{i + \lfloor{\frac{window}{2}}\rfloor}\right)^2}{k - window}$$
+\begin{equation}
+\t{smooth}_\t{poly}(y_1,...,y_k) = \Sum_{i=1}^{k - window + 1} \frac{\left(poly_{deg}(y_i,...,y_{i + window - 1})_{i + \lfloor{\frac{window}{2}}\rfloor} - y_{i + \lfloor{\frac{window}{2}}\rfloor}\right)^2}{k - window}
+\end{equation}
 Здесь ~~ $poly_{deg}(y_i,...,y_{i + window - 1})$ - аппроксимирующий полином степени deg, построенный по window точкам. Т.е. такой полином стпепени deg, что среднеквадратичное отклонение в точках $\{i,...,i + window - 1\}$ минимально.
 \end{definition}
 
@@ -334,7 +315,7 @@ $$\t{smooth}_\t{poly}(y_1,...,y_k) = \Sum_{i=1}^{k - window + 1} \frac{\left(pol
 
 Вторая метрика ведет себя лучше, однако тоже не является достаточно гибкой и интерпритируемой.
 
-С последней метрикой встает проблема выбора параметров deg и window. Тем не менее эта метрика понятна и действительно способона достаточно хорошо отображать гладкость функции. После перебора разных вариантов выбор был сделан в пользу параметров ${deg = 4}$, ${window = 11}$. При этом стоит учитывать, что гладкость метрики ранжирования измерялась на множествах размера порядка 100 точек.
+С последней метрикой встает проблема выбора параметров deg и window. Тем не менее эта метрика понятна и действительно способона достаточно хорошо отображать гладкость функции. После перебора разных вариантов выбор был сделан в пользу параметров ${deg = 3}$, ${window = 11}$. При этом стоит учитывать, что гладкость метрики ранжирования измерялась на множествах размера порядка 100 точек.
 
 % ============================================================================================================
 
@@ -345,7 +326,7 @@ $$\t{smooth}_\t{poly}(y_1,...,y_k) = \Sum_{i=1}^{k - window + 1} \frac{\left(pol
 
 Пусть наш набор документов в поисковом запросе уже упорядочен по скорам. Рассмотрим кокретный документ $d_j$ со скором $s_j$. Логично предположить, что скор не является точным определением того, на каком месте должен быть документ. Более точно: пусть ${s_j - s_{j + 1} < \varepsilon, s_{j - 1} - s_j > \varepsilon}$, тогда, если добавить к оценками ранжирующего алгоритма случайный шум с дисперсией $\varepsilon$, документы $s_j, s_{j+1}$ поменяются местами в выбаче более вероятно, чем $s_{j-1}, s_j$. Данный факт говорит о близости документов, однако DCG способен учитывать близость документов с точностью до 1 места.
 
-\hspace*{-0.7cm}\includegraphics[width=0.85\paperwidth]{SoftDCG} \\
+\hspace*{-0.7cm}\includegraphics[width=\textwidth]{SoftDCG} \\
 
 Метрика SoftDCG предполагает слудующее: вместо того, чтобы каждому документу сопоставлять конкретное место в поисковой выдаче, можно сопоставить ему нормальное распределение на местах. Параметры этого распределения подбираются по формулам исходя из скоров документов. Далее, зная распределение на местах, мы можем посчитать для каждого документа $$\hat{d}(j) = \E ~ \t{discount}(d_j) - \t{средний дискаунт j-го документа}$$.
 
@@ -418,17 +399,82 @@ $$FairSoftDCG = \Sum_{p_1,...,p_k} P(p_1,...,p_k) \cdot DCG(p_1,...,p_k),$$ гд
 \section{Эксперименты}
 
 \subsection{Зависимость гладкости от размера пула запросов}
-\pagebreak
+
+Первый эксперимент является одновременно способом проверить наш метод измерения гладкости на адекватность и способом сравнения между собой расмотренных ранее метрик ранжирования. Здесь и далее рассуждения будут вестись для метрики DCG, но они точно так же верны для любой метрики из списка SoftDCG, NoisedSoftDCG, FairSoftDCG.\\
+
+Для начала вспомним, что такое в нашей задаче "размер пула". Размер пула - это количество обрабатываемых поисковых запросов. Для каждого запроса мы считаем значение DCG, а потом производим усреднение данного значения по всем запросам. Все это происходит при каком-то зафиксированном наборе гиперпараметров.\\
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{\textwidth}
+    \centering
+        \includegraphics[height=10cm, width=\textwidth]{fair_decrease_smoothness}
+    \end{subfigure}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{\textwidth}
+    \centering
+        \includegraphics[height=10cm, width=\textwidth]{paper_decrease_smoothness}
+     \end{subfigure}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{\textwidth}
+    \centering
+        \includegraphics[height=10cm, width=\textwidth]{noised_decrease_smoothness}
+     \end{subfigure}
+\end{figure}
+
+Таким образом для каждого значения набора мы получаем какое-то значение метрики. Например, можно смотреть на значение метрики для ранжирующиго алгоритма, который является выпуклой комбинацие двух других алгоритмов, в зависимости от коэффициента, с которым алгоритмы смешиваются. Если рассматривать данный график, на множесте коэффициентов $[0;1]$, можно посчитать его гладкость. При этом, рост размера пула - т.е. увеличение количества запросов, по которому мы усредняем ответ, должно играть роль сглаживающего фактора. \\
+
+Данный эксперимент состоял в том, чтобы посмотреть на изменение гладкости с увеличением роста пула. Хочется заметить, что т.к. увеличивать пул мы возможности не имели, делалось эквивалентное действие - его уменьшение. Ожидалось, что для каждой метрики будет получен график, имеющий обратную пропорциональность - чем больше размер пула, тем меньше гладкость. Следует также напомнить, что в наших терминах гладкость кривой - тот параметр который хотелось бы уменьшить.\\
+
+На графиках для сравнения приведена гладкость DCG и гладкость соответствующих метрик. Для наглядности значения метрик брались при одном и том же значении гипарпараметра $\sigma = 2$. Можно заметить, что самой гладкой в нашей терминологии являлась метрика NoisedSoftDCG. При совсем маленьких размерах пула (0.6 от изначального размера и меньше) графики, как и ожидалось, являются слишком шумными.
 
 % ============================================================================================================
 
 \subsection{Зависимость качества аппроксимации от размера пула запросов}
-\pagebreak
+
+Аналогично предыдущему эксперименту логично было бы ожидать графики, на которых с увеличением размера пула аппроксимация DCG уменьшается. \\
+
+Аппроксимация в нашей нотации имеет тот же смысл, что и гладкость: меньшие значения соответствуют более близкой к DCG метрике.
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{\textwidth}
+    \centering
+        \includegraphics[height=10cm, width=\textwidth]{dcg_approximation}
+     \end{subfigure}
+\end{figure}
+
+Что же касается аппроксимации DCG, можно заметить, что график для NoisedSofDCG является наиболее шумным, а FairSoftDCG - наименее. 
 
 % ============================================================================================================
 
 \subsection{Изменение метрики при добавлении шума}
-\pagebreak
+
+Как упоминалось ранее, первоочередным действием в работе было желание убедиться в том, что метрика гладкости действительно несет ту смысловую нагрузку, которая на нее была возложена. Для этого проводился эксперимент по смешиванию двух ранжирующих формул, одна из которых была настроящей, а вторая - просто сгенерированным случайным шумом.
+
+\begin{figure}[!h]
+    \centering
+    \begin{subfigure}{\textwidth}
+    \centering
+        \includegraphics[width=\textwidth]{noised_metrics}
+     \end{subfigure}
+\end{figure}
+
+По оси x отложен коэффициент, с которым прибавляется случайный шум, по оси y - значения метрики. Можно заметить, что наши метрики убывают (т.е. они логичны) причем визуально видно, что они делают это почти монотонно. \\
+
+Подобное поведение в данном эксперименте является необходимым условием для класса искомых метрик.
+
+% ============================================================================================================
+
+\subsection{Изменение метрики для комбинации двух формул}
+
+
 
 % ============================================================================================================
 
